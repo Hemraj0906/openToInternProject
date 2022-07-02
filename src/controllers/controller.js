@@ -23,7 +23,7 @@ const createCollege = async function (req, res) {
         requestBody.name = requestBody.name.toLowerCase().split(" ").join("");
         //----check if name is unique
         const nameCheck = await collegeModel.find({ name: name })
-        if (nameCheck.length != 0) {
+        if (nameCheck.length!=0) {
             return res.status(400).send({ status: false, message: "this name(abbr) already exists" })
         }
 
@@ -62,8 +62,8 @@ let internData = async function (req, res) {
         const isMobile = await internModel.findOne({ mobile: mobile });
 
         if (isMobile) {
-            return res.status(400).send({ status: false, message: "Mobile number already registered" })
-                ;
+            return res.status(400).send({ status: false, message: "Mobile number already registered" });
+                
         }
         const emailUsed = await internModel.findOne({ email: email })
         if (emailUsed) {
@@ -74,16 +74,16 @@ let internData = async function (req, res) {
 
         const doc = await collegeModel.findOne({ name: collegeName })
         if (!doc) {
-            return res.status(404).send({ status: false, message: "collegeName is not registered" })
-                ;
+            return res.status(404).send({ status: false, message: "collegeName is not registered" });
+                
         }
 
         //validation ends
         let collegeId = doc._id
-        const result = await internModel.create({ name, email, mobile, collegeId })
+        const result = await internModel.create({name, email, mobile, collegeId  })
         res.status(201).send({ status: true, data: result })
 
-
+//name, email, mobile, collegeId
 
     }
     catch (err) {
